@@ -1,0 +1,18 @@
+ul,
+li {
+    list-style: none;
+    display: block;
+}
+
+ul {
+    position: absolute;
+    width: 96%;
+    margin: 0 auto;
+    top: 0px;
+    left: 0px;
+}
+
+li {
+    padding: 2%;
+    box-shadow: 0 0 0 1px #ccc;
+}

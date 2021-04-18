@@ -1,1 +1,241 @@
 /* You can add global styles to this file, and also import other style files */
+
+html {
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    padding: 0;
+    text-align: center;
+    margin: 0;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.puls {
+    padding: 3%;
+    font-size: 2rem;
+}
+
+.plus {
+    &:after {
+        content: '\f067';
+    }
+}
+
+.close {
+    &::after {
+        content: '\f00d';
+    }
+}
+
+.fadding-white {
+    background: rgba(256, 256, 256, 0.6);
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+    &:active {
+        text-decoration: none;
+    }
+}
+
+.full-height {
+    height: 60vh;
+    height: 100%;
+    height: 100%;
+}
+
+header {
+    display: block;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+}
+
+.justify-end {
+    justify-self: end;
+}
+
+.flex-start {
+    justify-self: start;
+    align-items: flex-start;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.mr-b {
+    margin-bottom: 2%;
+}
+
+.mr-t {
+    margin-top: 2%;
+}
+
+.mr-l {
+    margin-left: 2%;
+}
+
+.mr-r {
+    margin-right: 2%;
+}
+
+.padding {
+    padding: 3%;
+}
+
+.equal-space {
+    justify-content: space-around;
+}
+
+.full {
+    width: 100%;
+}
+
+input {
+    text-indent: 5px;
+    font-size: 1.1em;
+    margin: 0 0 10px;
+    border: 1px solid #767373;
+    padding: 9px 6px 9px 0;
+    border-radius: 3px;
+    height: 20px;
+}
+
+.error {
+    background: #07090e;
+    padding: 5px;
+    border-radius: 8px;
+    font-size: 0.85em;
+    margin-right: 4px;
+    color: #fff;
+    transition: all 0.7s ease;
+    box-shadow: -0.42px -0.42px 0 1px #8d8c8c;
+    position: absolute;
+    left: 5%;
+    top: -58%;
+    width: 100%;
+    &:before {
+        content: "";
+        width: 0;
+        height: 0;
+        position: absolute;
+        bottom: -8px;
+        right: 23px;
+        z-index: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 8px solid #07090e;
+    }
+}
+
+.border-bottom {
+    border-bottom: 2px solid;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.mainContent {
+    width: 89%;
+    margin: 0 0 0 auto;
+}
+
+.both {
+    &::after {
+        content: "";
+        clear: both;
+        display: block;
+    }
+}
+
+.l-padding {
+    padding: 2%;
+}
+
+.fixed {
+    position: fixed;
+}
+
+.sticky {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+}
+
+.relative {
+    position: relative;
+}
+
+.auction {
+    h4.both {
+        background: rgba(256, 256, 256, 0.4);
+        &:after {
+            width: 100%;
+            content: "";
+            height: 2px;
+            background: #000;
+        }
+    }
+    p.valueAuction {
+        background: rgba(256, 256, 256, 0.4);
+        padding: 1%;
+    }
+}
+
+.js-center {
+    justify-content: center;
+}
+
+.line {
+    height: 2px;
+    width: 90%;
+    background-color: #07090e;
+    margin: 2% auto;
+}
+
+button {
+    background: transparent;
+    box-shadow: unset;
+    color: #0e1119;
+    border: none;
+    cursor: pointer;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.bottom {
+    bottom: 2%;
+}
+
+.center {
+    text-align: center;
+}
+
+:focus {
+    outline: 0;
+    box-shadow: 0 0 2px 2px #d6d2d2;
+}
+
+.row {
+    width: 80%;
+    margin: 2% auto;
+}

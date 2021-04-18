@@ -1,0 +1,7 @@
+<div class="container center" *ngIf="WeatherData">
+    <h2>{{WeatherData?.Headline?.Text}}</h2>
+    <h3>{{WeatherData?.Headline?.EffectiveDate}}</h3>
+    <div class="row center">
+        <app-weather-item [weather]="Wi" *ngFor="let Wi of WeatherData.DailyForecasts"></app-weather-item>
+    </div>
+</div>

@@ -1,0 +1,4 @@
+.close{position:absolute; top:2px; right: 2px;}
+.col-sm-4.col-lg-4.relative{
+    box-shadow: 0px 0px .5px .5px;
+  }
