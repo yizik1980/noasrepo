@@ -17,41 +17,53 @@ export class SearchCityComponent implements OnInit, OnDestroy {
   cities: city[];
   // units = ['standard','metric','imperial'];
   choosenCity: city;
-  showList: boolean;
-  errorMessage = '';
-  @ViewChild('dataList')
-  dataListIetm: ElementRef;
+  showLoader: boolean;
+  choosenCityName: string;
   @ViewChild('autocompelet')
   autocompelet: ElementRef;
-  constructor(private store: Store<AppState>) {
-  }
+  constructor(private store: Store<AppState>) { }
+
   ngOnDestroy(): void {
   }
 
   ngAfterViewInit(): void {
+    const observeInput = fromEvent(this.autocompelet.nativeElement, 'input')
+      .pipe(debounceTime(1000));
+    fromEvent(this.autocompelet.nativeElement, 'focus').subscribe((e: InputEvent) => {
+      observeInput.subscribe((ev: any) => {
+        if (ev.target.value && ev.target.value.length > 2) {
+          this.showLoader = true;
+          this.store.dispatch(LoadCitiesAction({ city: ev.target.value }))
+        }
+      });
+    })
+    fromEvent(this.autocompelet.nativeElement, 'blue').subscribe((e: InputEvent) => {
+      observeInput.subscribe();
+    })
 
   }
 
-  autoCompeletCity($event: city) {
+  selectCity($event: city) {
     this.choosenCity = $event;
+    this.choosenCityName = $event.LocalizedName;
+    this.store.dispatch(LoadWeathersAction({ cityName: this.choosenCity.Key }))
   }
 
   ngOnInit(): void {
+    
     this.store.select(store => store.cities?.cities).subscribe(cities => {
+      this.showLoader = false;
       this.cities = cities;
     });
   }
 
   focusCity($event: any) {
-    this.showList = true;
+    this.showLoader = true;
   }
- 
+
   showWeather() {
     if (this.choosenCity) {
       this.store.dispatch(LoadWeathersAction({ cityName: this.choosenCity.LocalizedName }));
-
-    } else {
-      this.errorMessage = 'few arguments are missing';
     }
   }
 

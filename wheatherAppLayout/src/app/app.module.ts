@@ -32,7 +32,7 @@ import { AutocompleteComponent } from './components/autocomplete/autocomplete.co
     StoreModule.forRoot(reducers,{metaReducers}),
     EffectsModule.forRoot([HttpMonitorEffects, ]),
     !environment.production? StoreDevtoolsModule.instrument():[],
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [ {
     provide: HTTP_INTERCEPTORS,

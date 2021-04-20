@@ -32,12 +32,14 @@
         Icon: number;
         IconPhrase: string;
         HasPrecipitation: boolean;
+        IconUrl:string;
     }
 
     export interface Night {
         Icon: number;
         IconPhrase: string;
         HasPrecipitation: boolean;
+        IconUrl:string;
     }
 
     export interface DailyForecast {

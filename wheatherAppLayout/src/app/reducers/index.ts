@@ -44,7 +44,6 @@ const CityReducer = createReducer(
   initialCitiestate,
   on(LoadCitiesAction , state => ({ ...state })),
   on(LoadCitiesSuccessAction, (state, payload) => { 
-    debugger;
     return {...state, cities: payload.data };
   }),
   on(LoadCitiesFailureAction, (state,payload) => ({ ...state, error:payload.error }))

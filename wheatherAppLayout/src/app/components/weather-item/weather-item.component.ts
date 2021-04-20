@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { RemoveWeatherForcastAction } from 'src/app/actions/weather.actions';
-import { DailyForecast, WeatherData } from 'src/app/model/weather';
+import { DailyForecast } from 'src/app/model/weather';
 import { AppState } from 'src/app/reducers';
 
 @Component({
@@ -12,11 +11,6 @@ import { AppState } from 'src/app/reducers';
 export class WeatherItemComponent implements OnInit {
   @Input()
   weather:DailyForecast;
-  constructor(private state:Store<AppState>) {
-    //this.weather = new WeatherData();
-   }
-
-  ngOnInit(): void {
-  }
-
+  constructor(private state:Store<AppState>) {}
+  ngOnInit(): void {}
 }

@@ -1,7 +1,7 @@
-<div class="container center" *ngIf="WeatherData">
-    <h2>{{WeatherData?.Headline?.Text}}</h2>
-    <h3>{{WeatherData?.Headline?.EffectiveDate}}</h3>
-    <div class="row center">
-        <app-weather-item [weather]="Wi" *ngFor="let Wi of WeatherData.DailyForecasts"></app-weather-item>
+<div class="container-fluid d-flex justify-content-center full-height flex-column " *ngIf="(weathers$ | async)">
+    <h2>{{(weathers$ | async)?.Headline?.Text}}</h2>
+    <h3>{{(weathers$ | async)?.Headline?.EffectiveDate | date :'short'}}</h3>
+    <div class="d-flex justify-content-center flex-row">
+        <app-weather-item class=" relative mr-3 mb-3" [weather]="Wi" *ngFor="let Wi of (weathers$ | async).DailyForecasts"></app-weather-item>
     </div>
 </div>

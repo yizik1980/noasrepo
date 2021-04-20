@@ -29,13 +29,20 @@ export class HttpMonitorEffects {
             return LoadCitiesSuccessAction({ data: citiesRes });
           }),
           catchError((err) => {
-            debugger;
             return of(LoadCitiesFailureAction(err));
           })
         );
       })
     );
-
+  @Effect()
+  LoadLatLng$ = this.citiesActions$.pipe(
+    ofType(CityActionTypes.LoadLatLngCity)).pipe(switchMap((geoAction:any)=>{
+      return this.http.getGeoLoaction(geoAction.lng, geoAction.lat).pipe(map(result=>{
+        debugger;
+        return result;
+      }))
+    })
+  )
   @Effect()
   weatherEffect$ = this.weatherActions$.pipe(ofType(LoadWeathersAction)
     , switchMap((loc: any) => {

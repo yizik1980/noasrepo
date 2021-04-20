@@ -5,24 +5,11 @@ export enum CityActionTypes {
   LoadCities = '[City] Load Cities',
   LoadCitiesSuccess = '[City] Load Cities Success',
   LoadCitiesFailure = '[City] Load Cities Failure',
+  LoadLatLngCity = '[City] Load Coordinats Location'
 }
 
 export const LoadCitiesAction = createAction(CityActionTypes.LoadCities, props <{city:any}>());
 export const LoadCitiesSuccessAction = createAction(CityActionTypes.LoadCitiesSuccess ,  props< { data: city[] }>());
 export const LoadCitiesFailureAction = createAction(CityActionTypes.LoadCitiesFailure, props< { error: any }>());
-export class LoadCities implements Action {
-  readonly type = CityActionTypes.LoadCities;
-}
-
-export class LoadCitiesSuccess implements Action {
-  readonly type = CityActionTypes.LoadCitiesSuccess;
-  constructor(public payload: { data: city[] }) { }
-}
-
-export class LoadCitiesFailure implements Action {
-  readonly type = CityActionTypes.LoadCitiesFailure;
-  constructor(public payload: { error: any }) { }
-}
-
-export type CityActions =  LoadCities | LoadCitiesSuccess | LoadCitiesFailure;
+export const LoadLatLngCityAction = createAction(CityActionTypes.LoadLatLngCity, props <{lat:string, lng:string}>());
 
