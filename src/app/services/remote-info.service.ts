@@ -17,12 +17,10 @@ export class RemoteInfoService {
   };
   getCities(text: string): Observable<city[]> {
     const url = environment.autocomplet+ '?' + environment.apiCode+ '&q=' + text;
-    //http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=eQ54Bwy7RIuZeAn4J7LQkpAzh1AKnLdN&q=hai
     return this.http.get<city[]>(url);
   }
   getGeoLoaction(lat=40.714224,lng=-73.961452){
     const url = `${environment.geoLoc}latlng=${lat},${lng}${environment.geoCodeId}`;
-    console.log(url);
     return this.http.get(url);
   }
 }

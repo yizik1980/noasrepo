@@ -16,10 +16,6 @@ export class WeatherViewComponent implements OnInit {
   weathers$ = new Observable<WeatherData>();
   constructor(private store: Store<AppState>) { }
   ngOnInit(): void {
-    navigator.geolocation.getCurrentPosition((coors:any)=>{
-      console.log(coors);
-     // this.store.dispatch(LoadLatLngCityAction({lat:coors.coords.latitude+'',lng:coors.coords.longitude+''}))
-    });
     this.weathers$ = this.store.select(st => st.weather.weatherData)
       .pipe(map(res => {
         if (res) {
