@@ -38,7 +38,6 @@ export class HttpMonitorEffects {
   LoadLatLng$ = this.citiesActions$.pipe(
     ofType(CityActionTypes.LoadLatLngCity)).pipe(switchMap((geoAction:any)=>{
       return this.http.getGeoLoaction(geoAction.lng, geoAction.lat).pipe(map(result=>{
-        debugger;
         return result;
       }))
     })
