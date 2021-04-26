@@ -43,8 +43,7 @@ const weatherReducer = createReducer(
   on(LoadWeathersSuccessAction, (state, payload) => ({ ...state, weatherData: payload.data })),
   on(LoadWeathersFailureAction, (state, payload) => ({ ...state, error: payload.error })),
   on(saveSingleWeatherForcast, (state, payload) => {
-    debugger;
-    if(state.favorites.some((item)=>payload.f.key == item.key) || !payload.f){
+    if(!payload.f || state.favorites.some((item)=>payload.f.key == item.key) ){
       return state;
     }
     let sesstionFav = JSON.parse(sessionStorage.getItem('faviorate'));

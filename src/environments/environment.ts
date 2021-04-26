@@ -7,7 +7,7 @@ export const environment = {
   autocomplet:'https://dataservice.accuweather.com/locations/v1/cities/autocomplete',
   fiveDays:'https://dataservice.accuweather.com/forecasts/v1/daily/5day/',
   oneDay:'https://dataservice.accuweather.com/forecasts/v1/daily/1day/',
-  apiCode:'apikey=eQ54Bwy7RIuZeAn4J7LQkpAzh1AKnLdN&metric=true',
+  apiCode:'apikey=edE5Oo8GZa8bkMX8b1fAnzquxw5kKf88&metric=true',
   hebLang:'&language=he-il',
   iconsUrl: 'https://apidev.accuweather.com/developers/Media/Default/WeatherIcons/',
   geoCodeId:'&key=AIzaSyBFUa3WpzNxdnEic3dZCgMONWH9u5A4NLA',

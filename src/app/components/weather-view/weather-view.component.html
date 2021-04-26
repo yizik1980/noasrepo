@@ -4,10 +4,7 @@
     class="container-fluid d-flex justify-content-center full-height flex-column"
     *ngIf="WeatherDataOb"
     >
-    <h1>{{ selectCity.name}}</h1>
-    <h2>{{ WeatherDataOb?.Headline?.Text }}</h2>
-    <h3>{{ WeatherDataOb?.Headline?.EffectiveDate | date: "short" }}</h3>
-    <div class="right">
+    <div class="d-flex justify-content-end">
         <button (click)="addTofavorite()" class="btn btn-light">
           Add To favorite
           <svg class="heart-loader inline-block" viewbox="0 0 10 10"  title="heart">
@@ -15,6 +12,9 @@
         </svg>
         </button>
     </div>
+    <h1>{{ selectCity.name}}</h1>
+    <h2>{{ WeatherDataOb?.Headline?.Text }}</h2>
+    <h3>{{ WeatherDataOb?.Headline?.EffectiveDate | date: "short" }}</h3>
 
     <div class="d-flex justify-content-center flex-sm-row flex-column">
       <app-weather-item

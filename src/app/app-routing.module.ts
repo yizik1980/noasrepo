@@ -5,7 +5,7 @@ import { WeatherViewComponent } from './components/weather-view/weather-view.com
 
 
 const routes: Routes = [
-  { path: '', component: WeatherViewComponent },
+  { path: ':key/:name', component: WeatherViewComponent },
   { path: 'faviorite', component: FavoritesComponent }
 ];
 

@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -19,7 +20,7 @@ export class WeatherViewComponent implements OnInit, OnDestroy {
   selectCity: { name: string, key: string };
   subscriptionSelection = new Subscription();
   subscriptioWeather = new Subscription();
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>, private route:ActivatedRoute) { }
   ngOnDestroy(): void {
     this.subscriptionSelection.unsubscribe();
     this.subscriptioWeather.unsubscribe();
@@ -50,15 +51,24 @@ export class WeatherViewComponent implements OnInit, OnDestroy {
                 },
               };
             })
-
           }
         }
       })).subscribe(w => {
         this.WeatherDataOb = w;
       })
-
-    //default Tel Aviv Weather forcast
-    this.store.dispatch(selectCity({ key: '215854', name: 'Tel Aviv' }));
+      this.route.paramMap.subscribe( paramMap => {
+        const key = paramMap.get('key');
+        const name = paramMap.get('name');
+        console.log(name,key);
+        if(name && key){
+          this.store.dispatch(selectCity({ key, name }));
+        }else{
+          //default Tel Aviv Weather forcast
+          this.store.dispatch(selectCity({ key: '215854', name: 'Tel Aviv' }));
+        }
+    })
+    
+   // this.store.dispatch(selectCity({ key: '215854', name: 'Tel Aviv' }));
   }
   
   addTofavorite() {
