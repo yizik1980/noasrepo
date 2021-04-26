@@ -34,14 +34,14 @@ export class SearchCityComponent implements OnInit, OnDestroy {
       observeInput.subscribe((ev: any) => {
         if (ev.target.value && ev.target.value.length > 2) {
           this.showLoader = true;
-          this.store.dispatch(LoadCitiesAction({ city: ev.target.value }))
+          this.store.dispatch(LoadCitiesAction({ city: ev.target.value }));
+      
         }
       });
     })
     fromEvent(this.autocompelet.nativeElement, 'blur').subscribe((e: InputEvent) => {
       observeInput.subscribe();
-      this.cities = new Array<city>();
-      this.showLoader = false;
+     
     })
 
   }
