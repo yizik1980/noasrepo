@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { fromEvent, Observable} from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { LoadLatLngCityAction } from 'src/app/actions/city.actions';
+import { selectCity } from 'src/app/actions/city.actions';
+import { saveSingleWeatherForcast } from 'src/app/actions/weather.actions';
 import { WeatherData } from 'src/app/model/weather';
 import { AppState } from 'src/app/reducers';
 import { environment } from 'src/environments/environment';
@@ -12,11 +13,24 @@ import { environment } from 'src/environments/environment';
   templateUrl: './weather-view.component.html',
   styleUrls: ['./weather-view.component.scss']
 })
-export class WeatherViewComponent implements OnInit {
+export class WeatherViewComponent implements OnInit, OnDestroy {
   weathers$ = new Observable<WeatherData>();
+  WeatherDataOb: WeatherData;
+  selectCity: { name: string, key: string };
+  subscriptionSelection = new Subscription();
+  subscriptioWeather = new Subscription();
   constructor(private store: Store<AppState>) { }
+  ngOnDestroy(): void {
+    this.subscriptionSelection.unsubscribe();
+    this.subscriptioWeather.unsubscribe();
+  }
   ngOnInit(): void {
-    this.weathers$ = this.store.select(st => st.weather.weatherData)
+    this.subscriptionSelection = this.store.select(st => st.cities.selectedCity)
+    .subscribe(selectedCity => {
+      this.selectCity = selectedCity;
+    });
+
+    this.subscriptioWeather = this.store.select(st => st.weather.weatherData)
       .pipe(map(res => {
         if (res) {
           return {
@@ -39,6 +53,21 @@ export class WeatherViewComponent implements OnInit {
 
           }
         }
-      }));
+      })).subscribe(w => {
+        this.WeatherDataOb = w;
+      })
+
+    //default Tel Aviv Weather forcast
+    this.store.dispatch(selectCity({ key: '215854', name: 'Tel Aviv' }));
+  }
+  
+  addTofavorite() {
+    const citySelected = { ...this.selectCity };
+    const DailyForecast = { ...this.WeatherDataOb };
+    const favoriteItem = {
+      ...citySelected,
+      DailyForecast
+    };
+    this.store.dispatch(saveSingleWeatherForcast({ f: favoriteItem }))
   }
 }

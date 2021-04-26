@@ -1,7 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { FavoritesComponent } from './components/favorites/favorites.component';
+import { WeatherViewComponent } from './components/weather-view/weather-view.component';
 
-const routes: Routes = [];
+
+const routes: Routes = [
+  { path: '', component: WeatherViewComponent },
+  { path: 'faviorite', component: FavoritesComponent }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

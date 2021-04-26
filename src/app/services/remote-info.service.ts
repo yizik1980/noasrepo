@@ -19,8 +19,5 @@ export class RemoteInfoService {
     const url = environment.autocomplet+ '?' + environment.apiCode+ '&q=' + text;
     return this.http.get<city[]>(url);
   }
-  getGeoLoaction(lat=40.714224,lng=-73.961452){
-    const url = `${environment.geoLoc}latlng=${lat},${lng}${environment.geoCodeId}`;
-    return this.http.get(url);
-  }
+
 }

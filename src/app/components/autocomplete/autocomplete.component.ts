@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { city } from 'src/app/model/city';
 
 @Component({
@@ -13,7 +14,7 @@ export class AutocompleteComponent implements OnInit , OnChanges{
   cities: city[];
   @Input()
   show: boolean;
-  constructor() { }
+  constructor(private store:Store) { }
   ngOnChanges(changes: SimpleChanges): void {
     if(changes?.cities?.currentValue?.length == 1){
       this.selectItem(changes.cities.currentValue[0]);
@@ -21,10 +22,11 @@ export class AutocompleteComponent implements OnInit , OnChanges{
   }
 
   ngOnInit(): void {
-
   }
+
   selectItem(item: city) {
     this.SelectEvent.next(item);
     this.cities = new Array<city>();
   }
+  
 }

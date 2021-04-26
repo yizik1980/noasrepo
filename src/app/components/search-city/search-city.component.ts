@@ -1,8 +1,8 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { fromEvent, Observable } from 'rxjs';
+import { fromEvent, Observable, Subscription } from 'rxjs';
 import { catchError, debounceTime } from 'rxjs/operators';
-import { LoadCitiesAction } from 'src/app/actions/city.actions';
+import { LoadCitiesAction, selectCity } from 'src/app/actions/city.actions';
 import { LoadWeathersAction } from 'src/app/actions/weather.actions';
 import { city } from 'src/app/model/city';
 import { errorResponse } from 'src/app/model/error';
@@ -15,7 +15,7 @@ import { AppState } from './../../reducers';
 })
 export class SearchCityComponent implements OnInit, OnDestroy {
   cities: city[];
-  // units = ['standard','metric','imperial'];
+  citiesSubscription = new Subscription();
   choosenCity: city;
   showLoader: boolean;
   choosenCityName: string;
@@ -24,6 +24,7 @@ export class SearchCityComponent implements OnInit, OnDestroy {
   constructor(private store: Store<AppState>) { }
 
   ngOnDestroy(): void {
+    this.citiesSubscription.unsubscribe();
   }
 
   ngAfterViewInit(): void {
@@ -37,8 +38,10 @@ export class SearchCityComponent implements OnInit, OnDestroy {
         }
       });
     })
-    fromEvent(this.autocompelet.nativeElement, 'blue').subscribe((e: InputEvent) => {
+    fromEvent(this.autocompelet.nativeElement, 'blur').subscribe((e: InputEvent) => {
       observeInput.subscribe();
+      this.cities = new Array<city>();
+      this.showLoader = false;
     })
 
   }
@@ -46,12 +49,13 @@ export class SearchCityComponent implements OnInit, OnDestroy {
   selectCity($event: city) {
     this.choosenCity = $event;
     this.choosenCityName = $event.LocalizedName;
-    this.store.dispatch(LoadWeathersAction({ cityName: this.choosenCity.Key }))
+    this.store.dispatch(selectCity({ key: this.choosenCity.Key, name: this.choosenCity.LocalizedName }));
   }
 
   ngOnInit(): void {
-    
-    this.store.select(store => store.cities?.cities).subscribe(cities => {
+
+     this.citiesSubscription = this.store.select(store => store.cities?.cities)
+     .subscribe(cities => {
       this.showLoader = false;
       this.cities = cities;
     });

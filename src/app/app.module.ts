@@ -11,34 +11,37 @@ import { EffectsModule } from '@ngrx/effects';
 import { HttpMonitorEffects } from './effects/http-monitor.effects';
 import {metaReducers,reducers} from './reducers';
 import { WeatherItemComponent } from './components/weather-item/weather-item.component';
-import { HttpLoadingInterceptor } from './services/http-loading.interceptor';
-import { GlobalLoaderComponent } from './components/global-loader/global-loader.component';
 import { WeatherViewComponent } from './components/weather-view/weather-view.component';
 import { AutocompleteComponent } from './components/autocomplete/autocomplete.component';
+import { FavoritesComponent } from './components/favorites/favorites.component';
+import { FavoriteItemComponent } from './components/favorite-item/favorite-item.component';
+import { HeaderComponent } from './components/header/header.component';
+import { AppRoutingModule } from './app-routing.module';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchCityComponent,
     WeatherItemComponent,
-    GlobalLoaderComponent,
     WeatherViewComponent,
-    AutocompleteComponent
+    AutocompleteComponent,
+    FavoritesComponent,
+    FavoriteItemComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    CommonModule,
+    AppRoutingModule,
     HttpClientModule,
     StoreModule.forRoot(reducers,{metaReducers}),
     EffectsModule.forRoot([HttpMonitorEffects, ]),
     !environment.production? StoreDevtoolsModule.instrument():[],
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
-  providers: [ {
-    provide: HTTP_INTERCEPTORS,
-    useClass: HttpLoadingInterceptor,
-    multi: true,
-  }],
+  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

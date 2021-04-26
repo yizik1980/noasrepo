@@ -1,3 +1,3 @@
 <ul *ngIf="cities?.length>0">
-    <li *ngFor="let item of cities" (click)="selectItem(item)">{{item.LocalizedName}} <span>{{item.Key}}</span></li>
+    <li *ngFor="let item of cities" (click)="selectItem(item)"><b>{{item.LocalizedName}}</b> </li>
 </ul>

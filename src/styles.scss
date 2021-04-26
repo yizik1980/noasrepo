@@ -8,11 +8,18 @@ html {
     text-align: center;
     margin: 0;
 }
+:root{
+    --gray:#ccc;
 
+}
 .inline-block {
     display: inline-block;
 }
-
+app-header{
+    display: blocks;
+    margin: 0px;
+    padding: 0px;
+}
 .puls {
     padding: 3%;
     font-size: 2rem;
@@ -50,106 +57,6 @@ a {
 
 header {
     display: block;
-}
-
-.flex {
-    display: flex;
-    align-items: center;
-}
-
-.justify-end {
-    justify-self: end;
-}
-
-.flex-start {
-    justify-self: start;
-    align-items: flex-start;
-}
-
-.justify-center {
-    justify-content: center;
-}
-
-.flex-col {
-    display: flex;
-    flex-direction: column;
-}
-
-.mr-b {
-    margin-bottom: 2%;
-}
-
-.mr-t {
-    margin-top: 2%;
-}
-
-.mr-l {
-    margin-left: 2%;
-}
-
-.mr-r {
-    margin-right: 2%;
-}
-
-.padding {
-    padding: 3%;
-}
-
-.equal-space {
-    justify-content: space-around;
-}
-
-.full {
-    width: 100%;
-}
-
-input {
-    text-indent: 5px;
-    font-size: 1.1em;
-    margin: 0 0 10px;
-    border: 1px solid #767373;
-    padding: 9px 6px 9px 0;
-    border-radius: 3px;
-    height: 20px;
-}
-
-.error {
-    background: #07090e;
-    padding: 5px;
-    border-radius: 8px;
-    font-size: 0.85em;
-    margin-right: 4px;
-    color: #fff;
-    transition: all 0.7s ease;
-    box-shadow: -0.42px -0.42px 0 1px #8d8c8c;
-    position: absolute;
-    left: 5%;
-    top: -58%;
-    width: 100%;
-    &:before {
-        content: "";
-        width: 0;
-        height: 0;
-        position: absolute;
-        bottom: -8px;
-        right: 23px;
-        z-index: 0;
-        border-left: 5px solid transparent;
-        border-right: 5px solid transparent;
-        border-top: 8px solid #07090e;
-    }
-}
-
-.border-bottom {
-    border-bottom: 2px solid;
-}
-
-.left {
-    float: left;
-}
-
-.right {
-    float: right;
 }
 
 app-weather-item {

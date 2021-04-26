@@ -1,7 +1,27 @@
-<div class="container-fluid d-flex justify-content-center full-height flex-column " *ngIf="(weathers$ | async)">
-    <h2>{{(weathers$ | async)?.Headline?.Text}}</h2>
-    <h3>{{(weathers$ | async)?.Headline?.EffectiveDate | date :'short'}}</h3>
-    <div class="d-flex justify-content-center flex-row">
-        <app-weather-item class=" relative mr-3 mb-3" [weather]="Wi" *ngFor="let Wi of (weathers$ | async).DailyForecasts"></app-weather-item>
+<div class="view">
+  <app-search-city class="block m-2"></app-search-city>
+  <div
+    class="container-fluid d-flex justify-content-center full-height flex-column"
+    *ngIf="WeatherDataOb"
+    >
+    <h1>{{ selectCity.name}}</h1>
+    <h2>{{ WeatherDataOb?.Headline?.Text }}</h2>
+    <h3>{{ WeatherDataOb?.Headline?.EffectiveDate | date: "short" }}</h3>
+    <div class="right">
+        <button (click)="addTofavorite()" class="btn btn-light">
+          Add To favorite
+          <svg class="heart-loader inline-block" viewbox="0 0 10 10"  title="heart">
+            <path d="M17 12c-3.9 0-7 3.1-7 7 0 5.1 3.2 8.5 15 18.1 11.8-9.6 15-13 15-18.1 0-3.9-3.1-7-7-7-3.5 0-5.4 2.1-6.9 3.8L25 17.1l-1.1-1.3C22.4 14.1 20.5 12 17 12z" />
+        </svg>
+        </button>
     </div>
+
+    <div class="d-flex justify-content-center flex-sm-row flex-column">
+      <app-weather-item
+        class="relative mr-3 mb-3"
+        [weather]="Wi"
+        *ngFor="let Wi of WeatherDataOb.DailyForecasts"
+      ></app-weather-item>
+    </div>
+  </div>
 </div>

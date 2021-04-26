@@ -11,6 +11,6 @@ import { AppState } from 'src/app/reducers';
 export class WeatherItemComponent implements OnInit {
   @Input()
   weather:DailyForecast;
-  constructor(private state:Store<AppState>) {}
+  constructor() {}
   ngOnInit(): void {}
 }

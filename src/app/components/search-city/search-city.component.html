@@ -1,10 +1,6 @@
 <div class="wrap flex center">
     <div class="select">
         <input tabindex="0" #autocompelet autofocus class="form-control" [(ngModel)]="choosenCityName" placeholder="choose location">
-        <!-- <ul>
-            <li *ngFor="let item of cities">{{item.LocalizedName}} <span>{{item.Key}}</span></li>
-        </ul> -->
-
         <app-autocomplete [cities]="cities" (SelectEvent)="selectCity($event)"></app-autocomplete>
     </div>
     <div class="load" *ngIf="showLoader">
@@ -13,7 +9,6 @@
         <hr/>
         <hr/>
     </div>
-    <!-- <button class="plus fa" (click)="showWeather()">
-    </button> -->
+
 
 </div>
