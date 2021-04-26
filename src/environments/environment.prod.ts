@@ -4,7 +4,5 @@ export const environment = {
   fiveDays:'https://dataservice.accuweather.com/forecasts/v1/daily/5day/',
   apiCode:'apikey=edE5Oo8GZa8bkMX8b1fAnzquxw5kKf88&metric=true',
   hebLang:'&language=he-il',
-  iconsUrl: 'https://apidev.accuweather.com/developers/Media/Default/WeatherIcons/',
-  geoCodeId:'&key=********************************',
-  geoLoc:'https://maps.googleapis.com/maps/api/geocode/json?'
+  iconsUrl: 'https://apidev.accuweather.com/developers/Media/Default/WeatherIcons/'
 };
