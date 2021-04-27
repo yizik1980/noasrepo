@@ -8,3 +8,9 @@ svg.inline-block{
 .right{
     float: right;
 }
+@media screen and (max-width:800px) {
+   
+    .full-height{
+        height: auto;
+    }
+}

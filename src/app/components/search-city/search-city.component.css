@@ -71,3 +71,8 @@ li {
     padding: 2%;
     box-shadow: 0 0 0 1px #ccc;
 }
+@media screen and (max-width:800px) {
+    .wrap{
+        width: 90%;
+    }
+}
