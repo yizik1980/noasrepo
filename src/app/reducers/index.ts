@@ -1,73 +1,82 @@
 
-import { Action, ActionReducerMap, createReducer, MetaReducer, on, State } from '@ngrx/store';
+import { ActionReducerMap, createReducer, MetaReducer, on } from '@ngrx/store';
 import { environment } from '../../environments/environment';
-import { WeatherActionTypes, LoadWeathersAction, LoadWeathersSuccessAction, LoadWeathersFailureAction, saveSingleWeatherForcast, LoadFavoritesLocationAction } from '../actions/weather.actions';
-import { CityActionTypes, LoadCitiesAction, LoadCitiesSuccessAction, LoadCitiesFailureAction, selectCity } from '../actions/city.actions';
+import { LoadWeathersAction, LoadWeathersSuccessAction, saveSingleWeatherForcast, LoadFavoritesLocationAction } from '../actions/weather.actions';
+import { LoadCitiesAction, LoadCitiesSuccessAction, selectCity } from '../actions/city.actions';
 import { city } from '../model/city';
 import { WeatherData } from '../model/weather';
-import { errorResponse } from '../model/error';
 import { favorite } from '../model/favorite';
+import { failureAction } from '../actions/error.action';
 
 export interface WeatherState {
   weatherData: WeatherData;
-  error: errorResponse | null;
   favorites: Array<favorite>;
+  msg: { message: string };
 }
-
+export interface ErrorState {
+  error: string;
+}
+const InitialErrorState: ErrorState = {
+  error: null
+}
 const initialWeatherState: WeatherState = {
   weatherData: null,
-  error: null,
-  favorites: new Array<favorite>()
+  favorites: new Array<favorite>(),
+  msg: { message: '' }
 };
 
 export interface Citiestate {
   cities: city[] | null;
-  error: any | null;
-  selectedCity:{name:string,key:string}
+  selectedCity: { name: string, key: string }
 }
 
 const initialCitiestate: Citiestate = {
   cities: null,
-  error: null,
-  selectedCity:null
+  selectedCity: null
 };
 
 export interface AppState {
   weather: WeatherState;
   cities: Citiestate;
+  error: ErrorState;
 }
 
 const weatherReducer = createReducer(
   initialWeatherState,
   on(LoadWeathersAction, state => ({ ...state })),
   on(LoadWeathersSuccessAction, (state, payload) => ({ ...state, weatherData: payload.data })),
-  on(LoadWeathersFailureAction, (state, payload) => ({ ...state, error: payload.error })),
   on(saveSingleWeatherForcast, (state, payload) => {
-    if(!payload.f || state.favorites.some((item)=>payload.f.key == item.key) ){
+    if (!payload.f) {
       return state;
     }
     let sesstionFav = JSON.parse(sessionStorage.getItem('faviorate'));
-    if(!sesstionFav){
+    if (!sesstionFav) {
       sesstionFav = [];
     }
+    if (sesstionFav.some((item) => payload.f.key == item.key)) {
+      return {
+        ...state,
+        msg: { message: 'This favorite Allready exist' }
+      };
+    }
     sesstionFav.push({
-      ...payload.f 
+      ...payload.f
     });
     sessionStorage.setItem('faviorate', JSON.stringify(sesstionFav));
     return {
       ...state,
-      favorites:[...state.favorites,payload.f]
+      favorites: [...state.favorites, payload.f],
+      msg: { message: 'This favorite Was added Successfuly' }
     };
   }),
-  on(LoadFavoritesLocationAction, (state, payload)=>{
+  on(LoadFavoritesLocationAction, (state, payload) => {
     let sessionFav = JSON.parse(sessionStorage.getItem('faviorate'));
-    if(!sessionFav){
+    if (!sessionFav) {
       sessionFav = [];
     }
-
     return {
       ...state,
-      favorites:sessionFav
+      favorites: sessionFav
     };
   })
 );
@@ -79,18 +88,19 @@ const CityReducer = createReducer(
   on(LoadCitiesSuccessAction, (state, payload) => {
     return { ...state, cities: payload.data };
   }),
-  on(LoadCitiesFailureAction, (state, payload) => ({ ...state, error: payload.error })),
-  on(selectCity,(state, payload)=>({...state,selectedCity:{name:payload.name, key:payload.key}}))
+
+  on(selectCity, (state, payload) => ({ ...state, selectedCity: { name: payload.name, key: payload.key } }))
 );
 
-//export const reducers = combineReducers(weatherReducer, CityReducer)
-// export const reducers: ActionReducer<AppState> = combineReducers(CityReducer,weatherReducer)
+const ErrorReducer = createReducer(
+  InitialErrorState,
+  on(failureAction, (state, payload) => ({ ...state, error: payload.error }))
+)
 
 export const reducers: ActionReducerMap<AppState> = {
   cities: CityReducer,
-  weather: weatherReducer
+  weather: weatherReducer,
+  error: ErrorReducer
 };
 
 export const metaReducers: MetaReducer<any>[] = !environment.production ? [] : [];
-
-//export const selectCities = (state: AppState) => state.cities.cities; 

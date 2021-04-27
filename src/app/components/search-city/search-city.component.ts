@@ -25,23 +25,23 @@ export class SearchCityComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.citiesSubscription.unsubscribe();
+    this.cities = new Array<city>();
   }
 
   ngAfterViewInit(): void {
     const observeInput = fromEvent(this.autocompelet.nativeElement, 'input')
       .pipe(debounceTime(1000));
     fromEvent(this.autocompelet.nativeElement, 'focus').subscribe((e: InputEvent) => {
+      this.cities = new Array<city>();
       observeInput.subscribe((ev: any) => {
         if (ev.target.value && ev.target.value.length > 2) {
           this.showLoader = true;
           this.store.dispatch(LoadCitiesAction({ city: ev.target.value }));
-      
         }
       });
     })
     fromEvent(this.autocompelet.nativeElement, 'blur').subscribe((e: InputEvent) => {
       observeInput.subscribe();
-     
     })
 
   }

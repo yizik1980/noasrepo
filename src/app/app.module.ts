@@ -18,6 +18,8 @@ import { FavoriteItemComponent } from './components/favorite-item/favorite-item.
 import { HeaderComponent } from './components/header/header.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CommonModule } from '@angular/common';
+import { ErrorComponent } from './components/error/error.component';
+import { MessageComponent } from './components/message/message.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { CommonModule } from '@angular/common';
     AutocompleteComponent,
     FavoritesComponent,
     FavoriteItemComponent,
-    HeaderComponent
+    HeaderComponent,
+    ErrorComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,

@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
 import {
-  CityActionTypes, LoadCitiesAction, LoadCitiesFailureAction, LoadCitiesSuccessAction, selectCity
+  CityActionTypes, LoadCitiesSuccessAction, selectCity
 } from '../actions/city.actions';
-import { AppState, Citiestate } from '../reducers';
-import { map, catchError, switchMap, debounceTime } from 'rxjs/operators';
+import { map, catchError, switchMap } from 'rxjs/operators';
 import { RemoteInfoService } from '../services/remote-info.service';
-import { Observable, of } from 'rxjs';
-import {  LoadWeathersFailureAction, LoadWeathersSuccessAction} from '../actions/weather.actions';
+import { of } from 'rxjs';
+import {  failureAction } from '../actions/error.action';
+import { LoadWeathersSuccessAction } from '../actions/weather.actions';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class HttpMonitorEffects {
@@ -21,29 +21,22 @@ export class HttpMonitorEffects {
   LoadCities$ = this.citiesActions$.pipe(
     ofType(CityActionTypes.LoadCities))
     // .pipe(debounceTime(2000))
-    .pipe(
-      switchMap((action: any) => {
+    .pipe(switchMap((action: any) => {
         return this.http.getCities(action.city).pipe(
-          map((citiesRes) => {
-            return LoadCitiesSuccessAction({ data: citiesRes });
-          }),
-          catchError((err) => {
-            return of(LoadCitiesFailureAction(err));
-          })
+          map((citiesRes) =>  LoadCitiesSuccessAction({ data: citiesRes }))
         );
       })
-    );
+    ).pipe(catchError((err:HttpErrorResponse) => {
+      return of(failureAction({error:err.message}));
+    }));
 
   @Effect()
-  weatherEffect$ = this.weatherActions$.pipe(ofType(selectCity)
-    , switchMap((loc: any) => {
+  weatherEffect$ = this.weatherActions$.pipe(ofType(selectCity)).pipe(
+     switchMap((loc: any) => {
       return this.http.getCurrentWheaterFormLocation(loc.key)
-        .pipe(map(weatherOb => {
-          // weatherOb.initIcon();
-          return LoadWeathersSuccessAction({ data: weatherOb });
-        }),
-          catchError((err) => {
-            return of(LoadWeathersFailureAction(err));
-          }))
+        .pipe(map(weatherOb => LoadWeathersSuccessAction({ data: weatherOb })))
+    })).pipe(catchError((err:HttpErrorResponse) => {
+      return of(failureAction({error:err.message}));
     }));
+
 }

@@ -26,7 +26,6 @@ export class WeatherViewComponent implements OnInit, OnDestroy {
     this.subscriptioWeather.unsubscribe();
   }
   ngOnInit(): void {
-    debugger;
     this.subscriptionSelection = this.store.select(st => st.cities.selectedCity)
       .subscribe(selectedCity => {
         this.selectCity = selectedCity;

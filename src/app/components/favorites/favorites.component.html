@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-center flex-row">
     <app-favorite-item class="relative mr-3 mb-3 pointer" (click)="clickFaviorate(place)" [WheatherLocation]="place" *ngFor="let place of faivoritesPlaces$ | async"></app-favorite-item>
-    <div class="nofav center" *ngIf='!(faivoritesPlaces$ | async)'>
+    <div class="nofav center" *ngIf='(faivoritesPlaces$ | async).length == 0'>
         <h2>No faviorites </h2>
     </div>
 </div>
