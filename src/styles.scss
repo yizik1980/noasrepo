@@ -84,7 +84,11 @@ app-weather-item {
   width: 21%;
   margin: 2%;
 }
-
+@media screen and (max-width:800px) {
+    app-weather-item {
+        width:91%;
+      }
+}
 .mainContent {
   width: 89%;
   margin: 0 0 0 auto;
