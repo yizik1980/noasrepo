@@ -17,6 +17,7 @@ export class AutocompleteComponent implements OnInit , OnChanges{
   constructor(private store:Store) { }
   ngOnChanges(changes: SimpleChanges): void {
     if(changes?.cities?.currentValue?.length == 1){
+      debugger;
       this.selectItem(changes.cities.currentValue[0]);
     }
   }

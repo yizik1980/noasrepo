@@ -60,7 +60,6 @@ export class WeatherViewComponent implements OnInit, OnDestroy {
     this.route.paramMap.subscribe(paramMap => {
       const key = paramMap.get('key');
       const name = paramMap.get('name');
-      console.log(name, key);
       if (name && key) {
         this.store.dispatch(selectCity({ key, name }));
       } else {

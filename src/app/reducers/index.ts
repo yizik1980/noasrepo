@@ -89,7 +89,7 @@ const CityReducer = createReducer(
     return { ...state, cities: payload.data };
   }),
 
-  on(selectCity, (state, payload) => ({ ...state, selectedCity: { name: payload.name, key: payload.key } }))
+  on(selectCity, (state, payload) => ({ ...state,cities:new Array<city>(), selectedCity: { name: payload.name, key: payload.key } }))
 );
 
 const ErrorReducer = createReducer(

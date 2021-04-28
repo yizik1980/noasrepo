@@ -13,4 +13,3 @@ export const LoadCitiesAction = createAction(CityActionTypes.LoadCities, props <
 export const LoadCitiesSuccessAction = createAction(CityActionTypes.LoadCitiesSuccess ,  props< { data: city[] }>());
 export const selectCity = createAction(CityActionTypes.SelectCity, props <{key:string, name:string}>());
 
-
